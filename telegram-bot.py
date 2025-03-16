@@ -41,7 +41,7 @@ async def chat_completion_request(messages):
         response = groq_client.chat.completions.create(
             model=GROQ_GPT_MODEL,
             messages=messages,
-            max_tokens=500
+            max_tokens=250
         )
         #print("Groq: " + str(response))
         return response.choices[0].message.content
@@ -51,7 +51,7 @@ async def chat_completion_request(messages):
         response = openai_client.chat.completions.create(
            model=OPENAI_GPT_MODEL,
            messages=messages,
-           max_tokens=500,
+           max_tokens=250,
            temperature=0.3
         )
         #print("OpenAI: " + str(response))
@@ -73,7 +73,7 @@ async def reply(text):
       #print(context)
     except:
       context = ""
-    messages.append({"role": "user", "content": "Write a short article outlining following matchup. List the odds and probability.  Give your best bet based on the context provided only mention bets and odds that are referenced in the context. " + context + " " + match})
+    messages.append({"role": "user", "content": "Write a brief outlining following matchup. List the odds and probability.  Give your best bet based on the context provided only mention bets and odds that are referenced in the context. " + context + " " + match})
     reply = await chat_completion_request(messages)
     return reply
 
@@ -83,7 +83,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def prediction(update: Update, context: ContextTypes.DEFAULT_TYPE):
     #await context.bot.send_message(chat_id=update.effective_chat.id, text=update.message.text)
     response = await reply(update.message.text)
-    response = response + " BetUS - 125% Sign Up Bonus! - https://record.revmasters.com/_8ejz3pKmFDsdHrf4TDP9mWNd7ZgqdRLk/1/"
+    response = response + "\n\n BetUS - 125% Sign Up Bonus! - https://record.revmasters.com/_8ejz3pKmFDsdHrf4TDP9mWNd7ZgqdRLk/1/"
     await context.bot.send_message(chat_id=update.effective_chat.id, text=response)
 
 

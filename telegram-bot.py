@@ -96,6 +96,25 @@ async def replyTopNews(text):
     reply = await chat_completion_request(messages)
     return reply
 
+async def replyRecap(text):
+    context = ""
+    game = text
+    messages = []
+    messages.append({"role": "system", "content": "You are the worlds best AI Sports Handicapper and sportswriter. You are smart, funny and accurate."})
+    messages.append({"role": "user", "content": game})
+    try:
+      #newsArticles = ask.news.search_news("best prop bets for the text " + match, method='kw', return_type='dicts', n_articles=3, categories=["Sports"], premium=True, start_timestamp=int(start), end_timestamp=int(end)).as_dicts
+      newsArticles = ask.news.search_news("recap" + game, method='kw', return_type='dicts', n_articles=3, categories=["Sports"], hours_back=47, premium=True).as_dicts
+      context = ""
+      for article in newsArticles:
+        context += article.summary
+      #print(context)
+    except:
+      context = ""
+    messages.append({"role": "user", "content": "Write a brief outlining the following articles. Only mention teams, players or stats referenced in the context. " + context + " " + league})
+    reply = await chat_completion_request(messages)
+    return reply
+
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text="I'm a bot, please talk to me!")
 
@@ -111,6 +130,12 @@ async def topnews(update: Update, context: ContextTypes.DEFAULT_TYPE):
     response = response + "\n\nBetUS - 125% Sign Up Bonus! - https://record.revmasters.com/_8ejz3pKmFDsdHrf4TDP9mWNd7ZgqdRLk/1/"
     await context.bot.send_message(chat_id=update.effective_chat.id, text=response)
 
+async def recap(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    #await context.bot.send_message(chat_id=update.effective_chat.id, text=update.message.text)
+    response = await replyRecap(update.message.text)
+    response = response + "\n\nBetUS - 125% Sign Up Bonus! - https://record.revmasters.com/_8ejz3pKmFDsdHrf4TDP9mWNd7ZgqdRLk/1/"
+    await context.bot.send_message(chat_id=update.effective_chat.id, text=response)
+
 
 if __name__ == '__main__':
     application = ApplicationBuilder().token(TELEGRAM_API_TOKEN).build()
@@ -118,8 +143,10 @@ if __name__ == '__main__':
     start_handler = CommandHandler('start', start)
     prediction_handler = MessageHandler(filters.TEXT & (~filters.COMMAND), prediction)
     topnews_handler = MessageHandler(filters.TEXT & (~filters.COMMAND), topnews)
+    recap_handler = MessageHandler(filters.TEXT & (~filters.COMMAND), recap)
     application.add_handler(start_handler)
     application.add_handler(prediction_handler)
     application.add_handler(topnews_handler)
+    application.add_handler(recap_handler)
 
     application.run_polling()

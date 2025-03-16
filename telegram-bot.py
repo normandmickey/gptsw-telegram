@@ -80,9 +80,10 @@ async def reply(text):
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(chat_id=update.effective_chat.id, text="I'm a bot, please talk to me!")
 
-async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def prediction(update: Update, context: ContextTypes.DEFAULT_TYPE):
     #await context.bot.send_message(chat_id=update.effective_chat.id, text=update.message.text)
     response = await reply(update.message.text)
+    response = response + " BetUS - 125% Sign Up Bonus! - https://record.revmasters.com/_8ejz3pKmFDsdHrf4TDP9mWNd7ZgqdRLk/1/"
     await context.bot.send_message(chat_id=update.effective_chat.id, text=response)
 
 
@@ -90,8 +91,8 @@ if __name__ == '__main__':
     application = ApplicationBuilder().token(TELEGRAM_API_TOKEN).build()
 
     start_handler = CommandHandler('start', start)
-    echo_handler = MessageHandler(filters.TEXT & (~filters.COMMAND), echo)
+    prediction_handler = MessageHandler(filters.TEXT & (~filters.COMMAND), prediction)
     application.add_handler(start_handler)
-    application.add_handler(echo_handler)
+    application.add_handler(prediction_handler)
 
     application.run_polling()

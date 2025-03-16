@@ -121,7 +121,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def prediction(update: Update, context: ContextTypes.DEFAULT_TYPE):
     #await context.bot.send_message(chat_id=update.effective_chat.id, text=update.message.text)
     response = await reply(update.message.text)
-    response = response + "\n\nBetUS - 125% Sign Up Bonus! - https://record.revmasters.com/_8ejz3pKmFDsdHrf4TDP9mWNd7ZgqdRLk/1/"
+    response = update.message.text + "\n" + response + "\n\BetUS - 125% Sign Up Bonus! - https://record.revmasters.com/_8ejz3pKmFDsdHrf4TDP9mWNd7ZgqdRLk/1/"
     await context.bot.send_message(chat_id=update.effective_chat.id, text=response)
 
 async def topnews(update: Update, context: ContextTypes.DEFAULT_TYPE):

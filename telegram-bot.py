@@ -66,14 +66,14 @@ async def reply(text):
     messages.append({"role": "user", "content": match})
     try:
       #newsArticles = ask.news.search_news("best prop bets for the text " + match, method='kw', return_type='dicts', n_articles=3, categories=["Sports"], premium=True, start_timestamp=int(start), end_timestamp=int(end)).as_dicts
-      newsArticles = ask.news.search_news("best bet for the following matchup " + match, method='kw', return_type='dicts', n_articles=3, hours_back=24, categories=["Sports"], premium=True).as_dicts
+      newsArticles = ask.news.search_news(match, method='kw', return_type='dicts', n_articles=3, hours_back=24, categories=["Sports"], premium=True).as_dicts
       context = ""
       for article in newsArticles:
         context += article.summary
       #print(context)
     except:
       context = ""
-    messages.append({"role": "user", "content": "Write a brief outlining following matchup. List the odds and probability.  Give your best bet based on the context provided only mention bets and odds that are referenced in the context. " + context + " " + match})
+    messages.append({"role": "user", "content": "Write a brief outlining following matchup. List the best bet along with odds and probability if they are included in the articles.  Only mention odds, teams, players and statistics that are mentioned in the context. " + context + " " + match})
     reply = await chat_completion_request(messages)
     return reply
 
@@ -121,7 +121,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def prediction(update: Update, context: ContextTypes.DEFAULT_TYPE):
     #await context.bot.send_message(chat_id=update.effective_chat.id, text=update.message.text)
     response = await reply(update.message.text)
-    response = "Prediction: " + response + "\n\nBetUS - 125% Sign Up Bonus! - https://record.revmasters.com/_8ejz3pKmFDsdHrf4TDP9mWNd7ZgqdRLk/1/"
+    response = response + "\n\nBetUS - 125% Sign Up Bonus! - https://record.revmasters.com/_8ejz3pKmFDsdHrf4TDP9mWNd7ZgqdRLk/1/"
     await context.bot.send_message(chat_id=update.effective_chat.id, text=response)
 
 async def topnews(update: Update, context: ContextTypes.DEFAULT_TYPE):

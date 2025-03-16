@@ -66,7 +66,7 @@ async def reply(text):
     messages.append({"role": "user", "content": match})
     try:
       #newsArticles = ask.news.search_news("best prop bets for the text " + match, method='kw', return_type='dicts', n_articles=3, categories=["Sports"], premium=True, start_timestamp=int(start), end_timestamp=int(end)).as_dicts
-      newsArticles = ask.news.search_news("best bet for the following matchup " + match, method='kw', return_type='dicts', n_articles=3, categories=["Sports"], premium=True).as_dicts
+      newsArticles = ask.news.search_news("best bet for the following matchup " + match, method='kw', return_type='dicts', n_articles=3, hours_back=24, categories=["Sports"], premium=True).as_dicts
       context = ""
       for article in newsArticles:
         context += article.summary
@@ -85,7 +85,7 @@ async def replyTopNews(text):
     messages.append({"role": "user", "content": league})
     try:
       #newsArticles = ask.news.search_news("best prop bets for the text " + match, method='kw', return_type='dicts', n_articles=3, categories=["Sports"], premium=True, start_timestamp=int(start), end_timestamp=int(end)).as_dicts
-      newsArticles = ask.news.search_news("top news" + league, method='kw', return_type='dicts', n_articles=3, categories=["Sports"], premium=True).as_dicts
+      newsArticles = ask.news.search_news("top news" + league, method='kw', return_type='dicts', n_articles=3, categories=["Sports"], hours_back=1, premium=True).as_dicts
       context = ""
       for article in newsArticles:
         context += article.summary

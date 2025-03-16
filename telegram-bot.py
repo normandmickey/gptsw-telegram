@@ -121,19 +121,19 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def prediction(update: Update, context: ContextTypes.DEFAULT_TYPE):
     #await context.bot.send_message(chat_id=update.effective_chat.id, text=update.message.text)
     response = await reply(update.message.text)
-    response = response + "\n\nBetUS - 125% Sign Up Bonus! - https://record.revmasters.com/_8ejz3pKmFDsdHrf4TDP9mWNd7ZgqdRLk/1/"
+    response = "Prediction: " + response + "\n\nBetUS - 125% Sign Up Bonus! - https://record.revmasters.com/_8ejz3pKmFDsdHrf4TDP9mWNd7ZgqdRLk/1/"
     await context.bot.send_message(chat_id=update.effective_chat.id, text=response)
 
 async def topnews(update: Update, context: ContextTypes.DEFAULT_TYPE):
     #await context.bot.send_message(chat_id=update.effective_chat.id, text=update.message.text)
     response = await replyTopNews(update.message.text)
-    response = response + "\n\nBetUS - 125% Sign Up Bonus! - https://record.revmasters.com/_8ejz3pKmFDsdHrf4TDP9mWNd7ZgqdRLk/1/"
+    response = "Top News: " + response + "\n\nBetUS - 125% Sign Up Bonus! - https://record.revmasters.com/_8ejz3pKmFDsdHrf4TDP9mWNd7ZgqdRLk/1/"
     await context.bot.send_message(chat_id=update.effective_chat.id, text=response)
 
 async def recap(update: Update, context: ContextTypes.DEFAULT_TYPE):
     #await context.bot.send_message(chat_id=update.effective_chat.id, text=update.message.text)
     response = await replyRecap(update.message.text)
-    response = response + "\n\nBetUS - 125% Sign Up Bonus! - https://record.revmasters.com/_8ejz3pKmFDsdHrf4TDP9mWNd7ZgqdRLk/1/"
+    response = "Recap: " + response + "\n\nBetUS - 125% Sign Up Bonus! - https://record.revmasters.com/_8ejz3pKmFDsdHrf4TDP9mWNd7ZgqdRLk/1/"
     await context.bot.send_message(chat_id=update.effective_chat.id, text=response)
 
 
